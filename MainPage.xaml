@@ -13,53 +13,55 @@
     </ContentPage.BindingContext>
 
     <!--
-        Root Grid: 4 righe
-          Row 0 (*):    Vita  → prende tutto lo spazio verticale disponibile
-          Row 1 (Auto): Mana
-          Row 2 (Auto): Storm
-          Row 3 (Auto): Footer
+        Root Grid — budget verticale calibrato per 360×640 dp (telefono piccolo):
+          Row 0 (*):    Vita     ~250 dp — prende tutto lo spazio residuo
+          Row 1 (Auto): Mana     ~210 dp — celle compatte
+          Row 2 (Auto): Storm     ~80 dp
+          Row 3 (Auto): Footer    ~46 dp
+        Padding + spacing: ~44 dp
+        Totale fisso: ~380 dp  →  vita su 640 dp = ~260 dp
     -->
     <Grid RowDefinitions="*,Auto,Auto,Auto"
           ColumnDefinitions="*"
-          RowSpacing="12"
-          Padding="14,14,14,14">
+          RowSpacing="8"
+          Padding="10">
 
         <!-- ══════════════════════════════════════
              SEZIONE VITA  (YOU | OPPONENT)
              ══════════════════════════════════════ -->
         <Grid Grid.Row="0"
               ColumnDefinitions="*,*"
-              ColumnSpacing="12">
+              ColumnSpacing="8">
 
             <!-- ── YOU (viola) ── -->
             <Border Grid.Column="0"
                     BackgroundColor="#1A1535"
-                    StrokeShape="RoundRectangle 20"
+                    StrokeShape="RoundRectangle 18"
                     Stroke="#5B21B6"
                     StrokeThickness="1"
-                    Padding="10,14">
-                <VerticalStackLayout Spacing="2" VerticalOptions="Center">
+                    Padding="10,12">
+                <VerticalStackLayout Spacing="4" VerticalOptions="Center">
 
                     <Label Text="YOU"
                            TextColor="#7C3AED"
-                           FontSize="15"
+                           FontSize="11"
                            FontAttributes="Bold"
                            CharacterSpacing="2"
                            HorizontalOptions="Center" />
 
                     <Label Text="{Binding LifeTotal}"
                            TextColor="#DDD6FE"
-                           FontSize="140"
+                           FontSize="72"
                            FontAttributes="Bold"
                            HorizontalOptions="Center"
                            HorizontalTextAlignment="Center" />
 
-                    <Grid ColumnDefinitions="*,*" ColumnSpacing="8" Margin="0,4,0,0">
+                    <Grid ColumnDefinitions="*,*" ColumnSpacing="6">
                         <Button Grid.Column="0"
                                 Text="−"
                                 Command="{Binding DecrementLifeCommand}"
-                                HeightRequest="52"
-                                FontSize="28"
+                                HeightRequest="48"
+                                FontSize="26"
                                 CornerRadius="12"
                                 BackgroundColor="#3B0764"
                                 TextColor="#DDD6FE"
@@ -71,8 +73,8 @@
                         <Button Grid.Column="1"
                                 Text="+"
                                 Command="{Binding IncrementLifeCommand}"
-                                HeightRequest="52"
-                                FontSize="28"
+                                HeightRequest="48"
+                                FontSize="26"
                                 CornerRadius="12"
                                 BackgroundColor="#7C3AED"
                                 TextColor="White"
@@ -88,32 +90,32 @@
             <!-- ── OPPONENT (magenta) ── -->
             <Border Grid.Column="1"
                     BackgroundColor="#1E0B1E"
-                    StrokeShape="RoundRectangle 20"
+                    StrokeShape="RoundRectangle 18"
                     Stroke="#7C3AED"
                     StrokeThickness="1"
-                    Padding="10,14">
-                <VerticalStackLayout Spacing="2" VerticalOptions="Center">
+                    Padding="10,12">
+                <VerticalStackLayout Spacing="4" VerticalOptions="Center">
 
                     <Label Text="OPPONENT"
                            TextColor="#C62828"
-                           FontSize="15"
+                           FontSize="11"
                            FontAttributes="Bold"
                            CharacterSpacing="2"
                            HorizontalOptions="Center" />
 
                     <Label Text="{Binding OpponentLifeTotal}"
                            TextColor="#DDD6FE"
-                           FontSize="140"
+                           FontSize="72"
                            FontAttributes="Bold"
                            HorizontalOptions="Center"
                            HorizontalTextAlignment="Center" />
 
-                    <Grid ColumnDefinitions="*,*" ColumnSpacing="8" Margin="0,4,0,0">
+                    <Grid ColumnDefinitions="*,*" ColumnSpacing="6">
                         <Button Grid.Column="0"
                                 Text="−"
                                 Command="{Binding DecrementOpponentLifeCommand}"
-                                HeightRequest="52"
-                                FontSize="28"
+                                HeightRequest="48"
+                                FontSize="26"
                                 CornerRadius="12"
                                 BackgroundColor="#3B0A40"
                                 TextColor="#F0ABFC"
@@ -125,10 +127,10 @@
                         <Button Grid.Column="1"
                                 Text="+"
                                 Command="{Binding IncrementOpponentLifeCommand}"
-                                HeightRequest="52"
-                                FontSize="28"
+                                HeightRequest="48"
+                                FontSize="26"
                                 CornerRadius="12"
-                                BackgroundColor="#7C3AED"
+                                BackgroundColor="#A21CAF"
                                 TextColor="White"
                                 Padding="0">
                             <Button.Behaviors>
@@ -146,44 +148,41 @@
              ══════════════════════════════════════ -->
         <Border Grid.Row="1"
                 BackgroundColor="#1A1A2E"
-                StrokeShape="RoundRectangle 20"
+                StrokeShape="RoundRectangle 18"
                 Stroke="#3D2B6E"
                 StrokeThickness="1"
-                Padding="14,12">
-            <VerticalStackLayout Spacing="10">
+                Padding="10,8">
+            <VerticalStackLayout Spacing="6">
 
                 <Label Text="MANA POOL"
                        TextColor="#7060A8"
-                       FontSize="11"
+                       FontSize="10"
                        FontAttributes="Bold"
                        CharacterSpacing="2"
                        HorizontalOptions="Center" />
 
                 <Grid ColumnDefinitions="*,*,*"
                       RowDefinitions="Auto,Auto"
-                      ColumnSpacing="8"
-                      RowSpacing="8">
+                      ColumnSpacing="6"
+                      RowSpacing="6">
 
                     <!-- Riga 0: W · U · B -->
                     <controls:ManaCell Grid.Row="0" Grid.Column="0"
-                                       ManaName="W"
-                                       CircleColor="#B8A030"
+                                       ManaName="W" CircleColor="#B8A030"
                                        IconSource="white_mana.webp"
                                        Count="{Binding ManaW}"
                                        IncrementCommand="{Binding IncrementManaCommand}"
                                        DecrementCommand="{Binding DecrementManaCommand}" />
 
                     <controls:ManaCell Grid.Row="0" Grid.Column="1"
-                                       ManaName="U"
-                                       CircleColor="#1565C0"
+                                       ManaName="U" CircleColor="#1565C0"
                                        IconSource="blu_mana.webp"
                                        Count="{Binding ManaU}"
                                        IncrementCommand="{Binding IncrementManaCommand}"
                                        DecrementCommand="{Binding DecrementManaCommand}" />
 
                     <controls:ManaCell Grid.Row="0" Grid.Column="2"
-                                       ManaName="B"
-                                       CircleColor="#6A1B9A"
+                                       ManaName="B" CircleColor="#6A1B9A"
                                        IconSource="black_mana.webp"
                                        Count="{Binding ManaB}"
                                        IncrementCommand="{Binding IncrementManaCommand}"
@@ -191,24 +190,21 @@
 
                     <!-- Riga 1: R · G · C -->
                     <controls:ManaCell Grid.Row="1" Grid.Column="0"
-                                       ManaName="R"
-                                       CircleColor="#C62828"
+                                       ManaName="R" CircleColor="#C62828"
                                        IconSource="red_mana.webp"
                                        Count="{Binding ManaR}"
                                        IncrementCommand="{Binding IncrementManaCommand}"
                                        DecrementCommand="{Binding DecrementManaCommand}" />
 
                     <controls:ManaCell Grid.Row="1" Grid.Column="1"
-                                       ManaName="G"
-                                       CircleColor="#2E7D32"
+                                       ManaName="G" CircleColor="#2E7D32"
                                        IconSource="green_mana.webp"
                                        Count="{Binding ManaG}"
                                        IncrementCommand="{Binding IncrementManaCommand}"
                                        DecrementCommand="{Binding DecrementManaCommand}" />
 
                     <controls:ManaCell Grid.Row="1" Grid.Column="2"
-                                       ManaName="C"
-                                       CircleColor="#546E7A"
+                                       ManaName="C" CircleColor="#546E7A"
                                        IconSource="colorless_mana.webp"
                                        Count="{Binding ManaC}"
                                        IncrementCommand="{Binding IncrementManaCommand}"
@@ -222,60 +218,60 @@
              ══════════════════════════════════════ -->
         <Border Grid.Row="2"
                 BackgroundColor="#1A1A2E"
-                StrokeShape="RoundRectangle 20"
+                StrokeShape="RoundRectangle 18"
                 Stroke="#3D2B6E"
                 StrokeThickness="1"
-                Padding="14,14">
-            <VerticalStackLayout Spacing="6">
+                Padding="10,8">
+            <Grid ColumnDefinitions="Auto,*,Auto"
+                  ColumnSpacing="8">
 
-                <HorizontalStackLayout Spacing="6" HorizontalOptions="Center">
-                    <Image Source="storm_count.webp"
-                           WidthRequest="16"
-                           HeightRequest="16"
-                           VerticalOptions="Center"
-                           Aspect="AspectFit" />
-                    <Label Text="STORM COUNT"
-                           TextColor="#7060A8"
-                           FontSize="15"
-                           FontAttributes="Bold"
-                           CharacterSpacing="2"
-                           VerticalOptions="Center" />
-                </HorizontalStackLayout>
+                <Button Grid.Column="0"
+                        Text="− Spell"
+                        Command="{Binding RemoveSpellCommand}"
+                        CornerRadius="12"
+                        BackgroundColor="#374151"
+                        TextColor="#E8E8F0"
+                        FontAttributes="Bold"
+                        FontSize="13"
+                        Padding="12,8"
+                        VerticalOptions="Center" />
 
-                <Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="10">
-
-                    <Button Grid.Column="0"
-                            Text="− Spell"
-                            Command="{Binding RemoveSpellCommand}"
-                            CornerRadius="14"
-                            BackgroundColor="#374151"
-                            TextColor="#E8E8F0"
-                            FontAttributes="Bold"
-                            FontSize="14"
-                            Padding="16,14"
-                            VerticalOptions="Center" />
-
-                    <Label Grid.Column="1"
-                           Text="{Binding StormCount}"
+                <VerticalStackLayout Grid.Column="1"
+                                     Spacing="2"
+                                     HorizontalOptions="Center"
+                                     VerticalOptions="Center">
+                    <HorizontalStackLayout Spacing="5" HorizontalOptions="Center">
+                        <Image Source="storm_count.webp"
+                               WidthRequest="12"
+                               HeightRequest="12"
+                               VerticalOptions="Center"
+                               Aspect="AspectFit" />
+                        <Label Text="STORM"
+                               TextColor="#7060A8"
+                               FontSize="10"
+                               FontAttributes="Bold"
+                               CharacterSpacing="2"
+                               VerticalOptions="Center" />
+                    </HorizontalStackLayout>
+                    <Label Text="{Binding StormCount}"
                            TextColor="#F59E0B"
-                           FontSize="70"
+                           FontSize="40"
                            FontAttributes="Bold"
                            HorizontalOptions="Center"
-                           VerticalOptions="Center"
                            HorizontalTextAlignment="Center" />
+                </VerticalStackLayout>
 
-                    <Button Grid.Column="2"
-                            Text="+ Spell"
-                            Command="{Binding AddSpellCommand}"
-                            CornerRadius="14"
-                            BackgroundColor="#B45309"
-                            TextColor="White"
-                            FontAttributes="Bold"
-                            FontSize="14"
-                            Padding="16,14"
-                            VerticalOptions="Center" />
-                </Grid>
-            </VerticalStackLayout>
+                <Button Grid.Column="2"
+                        Text="+ Spell"
+                        Command="{Binding AddSpellCommand}"
+                        CornerRadius="12"
+                        BackgroundColor="#B45309"
+                        TextColor="White"
+                        FontAttributes="Bold"
+                        FontSize="13"
+                        Padding="12,8"
+                        VerticalOptions="Center" />
+            </Grid>
         </Border>
 
         <!-- ══════════════════════════════════════
@@ -283,27 +279,27 @@
              ══════════════════════════════════════ -->
         <Grid Grid.Row="3"
               ColumnDefinitions="*,*"
-              ColumnSpacing="10">
+              ColumnSpacing="8">
 
             <Button Grid.Column="0"
                     Text="Reset Turn"
                     Command="{Binding ResetTurnCommand}"
-                    CornerRadius="14"
+                    CornerRadius="12"
                     BackgroundColor="#374151"
                     TextColor="#E8E8F0"
                     FontAttributes="Bold"
-                    FontSize="15"
-                    HeightRequest="52" />
+                    FontSize="13"
+                    HeightRequest="46" />
 
             <Button Grid.Column="1"
                     Text="Reset Game"
                     Command="{Binding ResetGameCommand}"
-                    CornerRadius="14"
+                    CornerRadius="12"
                     BackgroundColor="#991B1B"
                     TextColor="White"
                     FontAttributes="Bold"
-                    FontSize="15"
-                    HeightRequest="52" />
+                    FontSize="13"
+                    HeightRequest="46" />
         </Grid>
 
     </Grid>
